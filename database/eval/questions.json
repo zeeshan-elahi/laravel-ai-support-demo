@@ -1,0 +1,29 @@
+{
+	"description": "Evaluation set for the PromoStandards specifications (public industry web-service specs). Each answerable question names the document and pages that hold the answer and keywords a correct answer must contain. Out-of-scope questions check that the app says the documents don't cover them.",
+	"questions": [
+		{"id": 1, "question": "In the Inventory 2.0 specification, what does the manufacturedItem field indicate?", "document": "inventory-2.0.0RC4.pdf", "pages": [11], "keywords": ["demand"]},
+		{"id": 2, "question": "Which unit of measure codes does the Inventory 2.0 service allow?", "document": "inventory-2.0.0RC4.pdf", "pages": [12, 13], "keywords": ["BX", "DZ", "TH"]},
+		{"id": 3, "question": "In the Inventory 2.0 service, what does error code 630 mean?", "document": "inventory-2.0.0RC4.pdf", "pages": [15], "keywords": ["part id not found"]},
+		{"id": 4, "question": "What values can invoiceType take in the Invoice service?", "document": "Invoice 1.0.0.pdf", "pages": [5], "keywords": ["invoice", "credit memo"]},
+		{"id": 5, "question": "If a supplier's system cannot include prepayments on an invoice, what should advancePaymentAmount be set to?", "document": "Invoice 1.0.0.pdf", "pages": [6], "keywords": ["zero"]},
+		{"id": 6, "question": "Which Invoice service function returns invoices that have been voided?", "document": "Invoice 1.0.0.pdf", "pages": [9], "keywords": ["getVoidedInvoices"]},
+		{"id": 7, "question": "By which parameters can shipment details be searched in the Order Shipment Notification service?", "document": "OSNWS-1.0.0.pdf", "pages": [5, 6], "keywords": ["purchase order", "sales order", "shipment date"]},
+		{"id": 8, "question": "What are the allowed values for shipmentDestinationType in the Order Shipment Notification service?", "document": "OSNWS-1.0.0.pdf", "pages": [7, 10], "keywords": ["commercial", "residential"]},
+		{"id": 9, "question": "What does the getDecorationColors() function do in the Pricing and Configuration service?", "document": "PricingAndConfiguration_1_0_0.pdf", "pages": [6, 7], "keywords": ["decoration color"]},
+		{"id": 10, "question": "What does the partGroup field represent in Pricing and Configuration, and which group should configuration start with?", "document": "PricingAndConfiguration_1_0_0.pdf", "pages": [14], "keywords": ["mutually exclusive", "1"]},
+		{"id": 11, "question": "What information does getFobPoints() return?", "document": "PricingAndConfiguration_1_0_0.pdf", "pages": [8, 9], "keywords": ["fob"]},
+		{"id": 12, "question": "In the Pricing and Configuration service, what does error code 403 mean?", "document": "PricingAndConfiguration_1_0_0.pdf", "pages": [21], "keywords": ["fobid not found"]},
+		{"id": 13, "question": "What does the getProductsWithRegulations() function return?", "document": "Product Compliance 1.0.0.pdf", "pages": [4, 5], "keywords": ["regulation"]},
+		{"id": 14, "question": "Which California regulation does the Product Compliance service report on?", "document": "Product Compliance 1.0.0.pdf", "pages": [5, 7, 8], "keywords": ["65"]},
+		{"id": 15, "question": "What does error code 600 mean in the Product Compliance service?", "document": "Product Compliance 1.0.0.pdf", "pages": [11], "keywords": ["product id not found"]},
+		{"id": 16, "question": "Which media types can the Media Content service return?", "document": "ProductMedia-1-0-0.pdf", "pages": [8], "keywords": ["image", "video", "audio", "document"]},
+		{"id": 17, "question": "Which functions does the Product Data 2.0 service provide?", "document": "product-data-2-0-0.pdf", "pages": [4], "keywords": ["getProduct", "getProductDateModified", "getProductCloseOut", "getProductSellable"]},
+		{"id": 18, "question": "In Product Data, what does nmfcCode stand for?", "document": "product-data-2-0-0.pdf", "pages": [11], "keywords": ["national motor freight"]},
+		{"id": 19, "question": "How can artwork be transported according to the Purchase Order specification?", "document": "purchaseOrder-1.0.0.pdf", "pages": [19], "keywords": ["email", "url", "ftp", "artworktofollow"]},
+		{"id": 20, "question": "Which contact types does a Purchase Order support?", "document": "purchaseOrder-1.0.0.pdf", "pages": [23], "keywords": ["art", "bill", "expeditor", "order", "sales", "ship", "sold"]}
+	],
+	"out_of_scope": [
+		{"id": 21, "question": "How much does a PromoStandards membership cost per year?"},
+		{"id": 22, "question": "Which supplier has the fastest shipping times in the promotional products industry?"}
+	]
+}

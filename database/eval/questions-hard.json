@@ -1,0 +1,25 @@
+{
+	"description": "Harder evaluation set for the same PromoStandards specifications. Paraphrased questions avoid the specs' field and function names, the way a user would ask. Cross-document questions need passages from more than one spec (match: all) or accept any spec that states a shared rule (match: any).",
+	"questions": [
+		{"id": 101, "question": "How can I tell from a supplier's stock feed that an item is made to order rather than kept on the shelf?", "document": "inventory-2.0.0RC4.pdf", "pages": [11], "keywords": ["manufactured"]},
+		{"id": 102, "question": "If a supplier reports stock in dozens, which code would they use for the unit?", "document": "inventory-2.0.0RC4.pdf", "pages": [12, 13], "keywords": ["DZ"]},
+		{"id": 103, "question": "How does an invoice show that it is really a refund owed to us rather than a bill?", "document": "Invoice 1.0.0.pdf", "pages": [5], "keywords": ["credit memo"]},
+		{"id": 104, "question": "Is there a way to find out which invoices a supplier has cancelled?", "document": "Invoice 1.0.0.pdf", "pages": [9, 10], "keywords": ["void"]},
+		{"id": 105, "question": "Can I look up shipments when all I know is the day they went out?", "document": "OSNWS-1.0.0.pdf", "pages": [5, 6], "keywords": ["shipment date"]},
+		{"id": 106, "question": "When setting up a product's options, how are choices that can't be combined with each other handled?", "document": "PricingAndConfiguration_1_0_0.pdf", "pages": [14], "keywords": ["mutually exclusive"]},
+		{"id": 107, "question": "How would I know which cancer or birth-defect warnings a product needs for sale in California?", "document": "Product Compliance 1.0.0.pdf", "pages": [5, 7, 8], "keywords": ["65"]},
+		{"id": 108, "question": "Can the supplier's media service give me product videos, or only pictures?", "document": "ProductMedia-1-0-0.pdf", "pages": [8], "keywords": ["video"]},
+		{"id": 109, "question": "How do I ask for next-day delivery on an order I send to a supplier?", "document": "purchaseOrder-1.0.0.pdf", "pages": [22], "keywords": ["nextday"]},
+		{"id": 110, "question": "How can I check whether a supplier still allows a product to be sold?", "document": "product-data-2-0-0.pdf", "pages": [17, 18], "keywords": ["sellable"]},
+		{"id": 111, "question": "What freight classification details can I get for a product?", "document": "product-data-2-0-0.pdf", "pages": [11], "keywords": ["motor freight"]},
+		{"id": 112, "question": "I sent an order and got back both a transaction number and some error messages. Did the order go through?", "document": "purchaseOrder-1.0.0.pdf", "pages": [25], "keywords": ["validation"]},
+		{"id": 113, "question": "When an order includes setup or decoration charges, where do the charge identifiers come from, and which function lists the available charges?", "sources": [{"document": "purchaseOrder-1.0.0.pdf", "pages": [16]}, {"document": "PricingAndConfiguration_1_0_0.pdf", "pages": [10, 11, 18]}], "match": "all", "keywords": ["pricing and configuration", "getAvailableCharges"]},
+		{"id": 114, "question": "An order references a decoration by its id. Which service defines those decorations, and how do I find out what colours a decoration can use?", "sources": [{"document": "purchaseOrder-1.0.0.pdf", "pages": [18]}, {"document": "PricingAndConfiguration_1_0_0.pdf", "pages": [6, 7]}], "match": "all", "keywords": ["pricing and configuration", "getDecorationColors"]},
+		{"id": 115, "question": "Across these services, which error code numbers are set aside for standard errors shared by all of them?", "sources": [{"document": "inventory-2.0.0RC4.pdf", "pages": [14]}, {"document": "Invoice 1.0.0.pdf", "pages": [11]}, {"document": "OSNWS-1.0.0.pdf", "pages": [9]}, {"document": "PricingAndConfiguration_1_0_0.pdf", "pages": [20]}, {"document": "Product Compliance 1.0.0.pdf", "pages": [10]}, {"document": "product-data-2-0-0.pdf", "pages": [21]}, {"document": "ProductMedia-1-0-0.pdf", "pages": [9]}, {"document": "purchaseOrder-1.0.0.pdf", "pages": [26]}], "match": "any", "keywords": ["100", "199"]},
+		{"id": 116, "question": "What severity levels can a service message have?", "sources": [{"document": "inventory-2.0.0RC4.pdf", "pages": [13]}, {"document": "Invoice 1.0.0.pdf", "pages": [11]}, {"document": "Product Compliance 1.0.0.pdf", "pages": [10]}, {"document": "product-data-2-0-0.pdf", "pages": [21]}, {"document": "purchaseOrder-1.0.0.pdf", "pages": [26]}], "match": "any", "keywords": ["error", "information", "warning"]}
+	],
+	"out_of_scope": [
+		{"id": 121, "question": "Which shipping carrier is cheapest for sending promotional products to Canada?"},
+		{"id": 122, "question": "What is the minimum order quantity for a branded water bottle?"}
+	]
+}
