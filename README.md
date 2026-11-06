@@ -2,12 +2,16 @@
 
 Ask questions about your own documents and get answers that cite the exact passages they came from.
 
+![Asking "How do I submit a PO?" and getting a cited answer from the PromoStandards purchase order spec](docs/demo.gif)
+
+*The wait for the answer is trimmed in this GIF; a real question takes about 15 seconds.*
+
 Upload a PDF or text file, ask a question in plain language, and the app finds the most relevant
 parts of your documents, sends them to Claude, and shows the answer with the quoted sources and file
 names underneath. No answer is given without a source to back it.
 
-> **Status:** working demo. Upload, retrieval, cited answers and a first evaluation are done; a
-> harder evaluation and a short video are next (see the roadmap below).
+> **Status:** working demo. Upload, retrieval, cited answers and two evaluation rounds are done; a
+> short video walkthrough is next (see the roadmap below).
 
 ## How it works
 
