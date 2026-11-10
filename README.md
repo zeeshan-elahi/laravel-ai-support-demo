@@ -154,6 +154,10 @@ docker compose exec app php artisan rag:eval --pace=20              # free Voyag
 A customer-support assistant for a fictional shop. Ask it about an order or a policy and it decides
 which tools to use, calls them, and answers from what they return.
 
+![The agent looks up an order, then ignores an instruction planted in a help article and answers the policy question](docs/agent-demo.gif)
+
+*Typing sped up and waiting trimmed; a run takes 2 to 4 seconds.*
+
 ```
 $ php artisan agent:ask "Where is my order ORD-10003?"
 Your order ORD-10003 has shipped and is on its way. It was shipped on October 12, 2026, and the
