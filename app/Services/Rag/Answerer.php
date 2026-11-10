@@ -166,6 +166,7 @@ class Answerer
 		$vector = $this->embedder->embedQuery($question);
 
 		return Chunk::query()
+			->inCollection('general')
 			->with('document')
 			->select(['id', 'document_id', 'chunk_index', 'page_number', 'content'])
 			->selectVectorDistance('embedding', $vector, 'distance')

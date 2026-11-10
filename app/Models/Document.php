@@ -9,6 +9,7 @@ class Document extends Model
 {
 	protected $fillable = [
 		'name',
+		'collection',
 		'mime_type',
 		'path',
 		'page_count',

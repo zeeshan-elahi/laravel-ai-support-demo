@@ -1,3 +1,6 @@
+# Fixed project name, so container and network names don't depend on the folder name.
+name: laravel-ai-support-demo
+
 services:
   db:
     image: pgvector/pgvector:pg17
@@ -31,3 +34,5 @@ services:
 
 volumes:
   pgdata:
+    # Pinned to the volume created under the repo's first name, so the database survives the rename.
+    name: laravel-rag-demo_pgdata
