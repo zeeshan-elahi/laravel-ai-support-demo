@@ -1,0 +1,49 @@
+{
+	"file": "inv-03-dune-lantern-it-services.pdf",
+	"layout": "B",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout B, hourly line with a decimal quantity (7.5). Dates printed \"12 Nov 2026\".",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "DL-1107",
+		"issue_date": "2026-11-12",
+		"due_date": "2026-12-12",
+		"supplier": {
+			"name": "Dune Lantern IT Services FZE",
+			"trn": "100345678900003"
+		},
+		"customer": {
+			"name": "Harbor Finch Consulting FZ-LLC",
+			"trn": "100987654300003"
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "On-site network support (hours)",
+				"quantity": 7.5,
+				"unit_price": 180.0,
+				"line_total": 1350.0
+			},
+			{
+				"description": "Firewall configuration review",
+				"quantity": 1,
+				"unit_price": 1450.0,
+				"line_total": 1450.0
+			},
+			{
+				"description": "Microsoft 365 licence migration (per user)",
+				"quantity": 14,
+				"unit_price": 65.0,
+				"line_total": 910.0
+			}
+		],
+		"subtotal": 3710.0,
+		"discount": 0.0,
+		"vat_rate": 5,
+		"vat_amount": 185.5,
+		"total": 3895.5
+	}
+}

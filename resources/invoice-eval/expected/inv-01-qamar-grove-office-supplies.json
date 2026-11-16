@@ -1,0 +1,55 @@
+{
+	"file": "inv-01-qamar-grove-office-supplies.pdf",
+	"layout": "A",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout A, clean, four lines. Dates printed dd/mm/yyyy.",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "QG-2026-0418",
+		"issue_date": "2026-10-04",
+		"due_date": "2026-11-03",
+		"supplier": {
+			"name": "Qamar Grove Trading LLC",
+			"trn": "100234567800003"
+		},
+		"customer": {
+			"name": "Harbor Finch Consulting FZ-LLC",
+			"trn": "100987654300003"
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "A4 copy paper 80gsm (box of 5 reams)",
+				"quantity": 12,
+				"unit_price": 95.0,
+				"line_total": 1140.0
+			},
+			{
+				"description": "Ballpoint pens, blue (pack of 50)",
+				"quantity": 4,
+				"unit_price": 42.5,
+				"line_total": 170.0
+			},
+			{
+				"description": "Desk organiser, mesh",
+				"quantity": 6,
+				"unit_price": 38.75,
+				"line_total": 232.5
+			},
+			{
+				"description": "Whiteboard markers, assorted (pack of 12)",
+				"quantity": 5,
+				"unit_price": 27.0,
+				"line_total": 135.0
+			}
+		],
+		"subtotal": 1677.5,
+		"discount": 0.0,
+		"vat_rate": 5,
+		"vat_amount": 83.88,
+		"total": 1761.38
+	}
+}

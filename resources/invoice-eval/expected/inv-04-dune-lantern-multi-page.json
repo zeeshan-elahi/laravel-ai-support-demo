@@ -1,0 +1,247 @@
+{
+	"file": "inv-04-dune-lantern-multi-page.pdf",
+	"layout": "B",
+	"pages": 3,
+	"text_layer": true,
+	"notes": "Layout B, 36 lines over pages 1 and 2 (no repeated column header), totals alone on page 3. Every line must be captured.",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "DL-1112",
+		"issue_date": "2026-11-14",
+		"due_date": "2026-12-14",
+		"supplier": {
+			"name": "Dune Lantern IT Services FZE",
+			"trn": "100345678900003"
+		},
+		"customer": {
+			"name": "Silver Wadi Clinics LLC",
+			"trn": "100555666700003"
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "Laptop setup and imaging, asset SW-101",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-102",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-103",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-104",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-105",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-106",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-107",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-108",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-109",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-110",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-111",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-112",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-113",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-114",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-115",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-116",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-117",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-118",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-119",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-120",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-121",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-122",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-123",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-124",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-125",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-126",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-127",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-128",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-129",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-130",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-131",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-132",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			},
+			{
+				"description": "Laptop setup and imaging, asset SW-133",
+				"quantity": 1,
+				"unit_price": 120.0,
+				"line_total": 120.0
+			},
+			{
+				"description": "Printer driver deployment, asset SW-134",
+				"quantity": 1,
+				"unit_price": 45.0,
+				"line_total": 45.0
+			},
+			{
+				"description": "Email account configuration, asset SW-135",
+				"quantity": 1,
+				"unit_price": 35.0,
+				"line_total": 35.0
+			},
+			{
+				"description": "Backup agent installation, asset SW-136",
+				"quantity": 1,
+				"unit_price": 60.0,
+				"line_total": 60.0
+			}
+		],
+		"subtotal": 2340.0,
+		"discount": 0.0,
+		"vat_rate": 5,
+		"vat_amount": 117.0,
+		"total": 2457.0
+	}
+}

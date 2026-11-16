@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\AgentStepCompleted;
 use App\Models\AgentRun;
+use App\Support\TokenCost;
 
 class RecordAgentStep
 {
@@ -35,21 +36,16 @@ class RecordAgentStep
 	}
 
 	/**
-	 * Estimated cost from the model's configured prices (USD per million tokens).
-	 * With caching, `input_tokens` is only the uncached remainder; cache writes and
-	 * reads are billed at their own prices.
+	 * Estimated cost of the run so far (see TokenCost).
 	 */
 	public static function cost(AgentRun $run): string
 	{
-		$price = config("agent.models.{$run->model}.price", []) + [
-			'input' => 0, 'cache_write' => 0, 'cache_read' => 0, 'output' => 0,
-		];
-
-		$usd = ($run->input_tokens * $price['input']
-			+ $run->cache_write_tokens * $price['cache_write']
-			+ $run->cache_read_tokens * $price['cache_read']
-			+ $run->output_tokens * $price['output']) / 1_000_000;
-
-		return number_format($usd, 6, '.', '');
+		return TokenCost::usd(
+			$run->model,
+			$run->input_tokens,
+			$run->output_tokens,
+			$run->cache_write_tokens,
+			$run->cache_read_tokens,
+		);
 	}
 }

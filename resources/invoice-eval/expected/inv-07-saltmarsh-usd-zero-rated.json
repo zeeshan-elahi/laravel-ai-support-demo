@@ -1,0 +1,43 @@
+{
+	"file": "inv-07-saltmarsh-usd-zero-rated.pdf",
+	"layout": "D",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout D, USD, zero-rated export of services (VAT 0%), foreign customer without a TRN. Dates printed \"November 7, 2026\"; amounts without thousands separators.",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "SA-0093",
+		"issue_date": "2026-11-07",
+		"due_date": "2026-12-07",
+		"supplier": {
+			"name": "Saltmarsh Analytics FZ-LLC",
+			"trn": "100567890100003"
+		},
+		"customer": {
+			"name": "Ostrava Freight s.r.o.",
+			"trn": null
+		},
+		"currency": "USD",
+		"lines": [
+			{
+				"description": "Data pipeline maintenance, October 2026",
+				"quantity": 1,
+				"unit_price": 2400.0,
+				"line_total": 2400.0
+			},
+			{
+				"description": "Dashboard changes (hours)",
+				"quantity": 12,
+				"unit_price": 55.0,
+				"line_total": 660.0
+			}
+		],
+		"subtotal": 3060.0,
+		"discount": 0.0,
+		"vat_rate": 0,
+		"vat_amount": 0.0,
+		"total": 3060.0
+	}
+}

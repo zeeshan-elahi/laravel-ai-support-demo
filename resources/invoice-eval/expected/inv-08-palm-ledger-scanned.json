@@ -1,0 +1,49 @@
+{
+	"file": "inv-08-palm-ledger-scanned.pdf",
+	"layout": "D",
+	"pages": 1,
+	"text_layer": false,
+	"notes": "Layout D rasterised to an image-only PDF (150 dpi, greyscale): no text layer, the model must read the image. Clean image: no skew, noise or stamps.",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "PL-5520",
+		"issue_date": "2026-11-05",
+		"due_date": "2026-11-20",
+		"supplier": {
+			"name": "Palm Ledger Catering LLC",
+			"trn": "100678901200003"
+		},
+		"customer": {
+			"name": "Silver Wadi Clinics LLC",
+			"trn": "100555666700003"
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "Staff lunch buffet (per person)",
+				"quantity": 45,
+				"unit_price": 38.0,
+				"line_total": 1710.0
+			},
+			{
+				"description": "Coffee break service",
+				"quantity": 2,
+				"unit_price": 350.0,
+				"line_total": 700.0
+			},
+			{
+				"description": "Delivery and setup",
+				"quantity": 1,
+				"unit_price": 150.0,
+				"line_total": 150.0
+			}
+		],
+		"subtotal": 2560.0,
+		"discount": 0.0,
+		"vat_rate": 5,
+		"vat_amount": 128.0,
+		"total": 2688.0
+	}
+}

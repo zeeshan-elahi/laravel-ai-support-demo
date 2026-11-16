@@ -1,0 +1,51 @@
+{
+	"file": "inv-06-coral-spindle-wrong-total.pdf",
+	"layout": "C",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout C with a deliberate error: the printed total is 100.00 too high. Ground truth = printed values; the code checks must flag the total.",
+	"expected_status": "needs_review",
+	"expected_failed_checks": [
+		"total"
+	],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "CSP/26/0921",
+		"issue_date": "2026-11-10",
+		"due_date": "2026-11-24",
+		"supplier": {
+			"name": "Coral Spindle Printing LLC",
+			"trn": "100456789000003"
+		},
+		"customer": {
+			"name": "Harbor Finch Consulting FZ-LLC",
+			"trn": "100987654300003"
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "Annual report printing, 48 pages",
+				"quantity": 200,
+				"unit_price": 18.5,
+				"line_total": 3700.0
+			},
+			{
+				"description": "Presentation folders, printed",
+				"quantity": 300,
+				"unit_price": 7.25,
+				"line_total": 2175.0
+			},
+			{
+				"description": "Envelopes C4, printed",
+				"quantity": 500,
+				"unit_price": 1.1,
+				"line_total": 550.0
+			}
+		],
+		"subtotal": 6425.0,
+		"discount": 0.0,
+		"vat_rate": 5,
+		"vat_amount": 321.25,
+		"total": 6846.25
+	}
+}

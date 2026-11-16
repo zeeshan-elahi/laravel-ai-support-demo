@@ -1,0 +1,37 @@
+{
+	"file": "inv-10-dune-lantern-no-due-date.pdf",
+	"layout": "B",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout B, one large line (48,500.00), no due date or payment terms printed (expected null, not guessed).",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "DL-1120",
+		"issue_date": "2026-11-16",
+		"due_date": null,
+		"supplier": {
+			"name": "Dune Lantern IT Services FZE",
+			"trn": "100345678900003"
+		},
+		"customer": {
+			"name": "Granite Owl Real Estate LLC",
+			"trn": "100789012300003"
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "Server room upgrade, project fee (milestone 2 of 3)",
+				"quantity": 1,
+				"unit_price": 48500.0,
+				"line_total": 48500.0
+			}
+		],
+		"subtotal": 48500.0,
+		"discount": 0.0,
+		"vat_rate": 5,
+		"vat_amount": 2425.0,
+		"total": 50925.0
+	}
+}

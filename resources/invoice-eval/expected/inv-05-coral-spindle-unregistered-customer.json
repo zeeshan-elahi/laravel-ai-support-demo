@@ -1,0 +1,55 @@
+{
+	"file": "inv-05-coral-spindle-unregistered-customer.pdf",
+	"layout": "C",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout C: columns in a different order (unit price before quantity), amounts as \"Dhs\", customer has no TRN (expected null).",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "CSP/26/0907",
+		"issue_date": "2026-11-03",
+		"due_date": "2026-11-17",
+		"supplier": {
+			"name": "Coral Spindle Printing LLC",
+			"trn": "100456789000003"
+		},
+		"customer": {
+			"name": "Juniper Kite Events",
+			"trn": null
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "Roll-up banner 85 x 200 cm",
+				"quantity": 4,
+				"unit_price": 245.0,
+				"line_total": 980.0
+			},
+			{
+				"description": "Business cards 350gsm (box of 500)",
+				"quantity": 6,
+				"unit_price": 120.0,
+				"line_total": 720.0
+			},
+			{
+				"description": "A5 flyers, double-sided (1,000)",
+				"quantity": 3,
+				"unit_price": 380.0,
+				"line_total": 1140.0
+			},
+			{
+				"description": "Event lanyards, printed",
+				"quantity": 150,
+				"unit_price": 6.4,
+				"line_total": 960.0
+			}
+		],
+		"subtotal": 3800.0,
+		"discount": 0.0,
+		"vat_rate": 5,
+		"vat_amount": 190.0,
+		"total": 3990.0
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"file": "quote-09-qamar-grove-quotation.pdf",
+	"layout": "A",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout A styled like inv-01 but it is a quotation (Quote No., Valid until). Must be rejected, not extracted as an invoice.",
+	"expected_status": "rejected",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "not_invoice"
+	}
+}

@@ -1,0 +1,67 @@
+{
+	"file": "inv-02-qamar-grove-discount.pdf",
+	"layout": "A",
+	"pages": 1,
+	"text_layer": true,
+	"notes": "Layout A, six lines and a 10% discount printed as an amount before VAT.",
+	"expected_status": "accepted",
+	"expected_failed_checks": [],
+	"expected": {
+		"document_type": "invoice",
+		"invoice_number": "QG-2026-0431",
+		"issue_date": "2026-10-19",
+		"due_date": "2026-11-18",
+		"supplier": {
+			"name": "Qamar Grove Trading LLC",
+			"trn": "100234567800003"
+		},
+		"customer": {
+			"name": "Silver Wadi Clinics LLC",
+			"trn": "100555666700003"
+		},
+		"currency": "AED",
+		"lines": [
+			{
+				"description": "Toner cartridge, black",
+				"quantity": 3,
+				"unit_price": 310.0,
+				"line_total": 930.0
+			},
+			{
+				"description": "Laminating pouches A4 (box of 100)",
+				"quantity": 2,
+				"unit_price": 64.0,
+				"line_total": 128.0
+			},
+			{
+				"description": "Archive boxes, corrugated",
+				"quantity": 20,
+				"unit_price": 11.5,
+				"line_total": 230.0
+			},
+			{
+				"description": "Sticky notes 3x3 (12 pads)",
+				"quantity": 8,
+				"unit_price": 18.25,
+				"line_total": 146.0
+			},
+			{
+				"description": "Stapler, heavy duty",
+				"quantity": 2,
+				"unit_price": 89.0,
+				"line_total": 178.0
+			},
+			{
+				"description": "Label printer tape 12mm",
+				"quantity": 10,
+				"unit_price": 34.9,
+				"line_total": 349.0
+			}
+		],
+		"subtotal": 1961.0,
+		"discount": 196.1,
+		"vat_rate": 5,
+		"vat_amount": 88.25,
+		"total": 1853.15
+	}
+}

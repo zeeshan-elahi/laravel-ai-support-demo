@@ -1,12 +1,15 @@
 # Laravel AI Support Demo
 
-A Laravel app with two AI features of the kind a business adds to a product it already runs:
+A Laravel app with three AI features of the kind a business adds to a product it already runs:
 
 1. **Document Q&A with citations** (done): ask questions about your own documents and get answers
    that cite the exact passages they came from.
 2. **A support agent with tools** (done): answers customer questions about orders and shop
    policies, opens support tickets when the customer asks, resists instructions planted in the
    documents it reads, and logs every step with its token count and cost.
+3. **Invoice extraction** (done): turns a PDF invoice, including a scan, into structured data
+   (UAE tax-invoice fields, line items, VAT), then rechecks every amount and TRN in code and flags
+   the invoice for review when something does not add up.
 
 ![Asking "How do I submit a PO?" and getting a cited answer from the PromoStandards purchase order spec](docs/demo.gif)
 
@@ -16,9 +19,11 @@ Upload a PDF or text file, ask a question in plain language, and the app finds t
 parts of your documents, sends them to Claude, and shows the answer with the quoted sources and file
 names underneath. No answer is given without a source to back it.
 
-> **Status:** both features are working demos with their own evaluations. The support agent
+> **Status:** all three features are working demos with their own evaluations. The support agent
 > passes 15 of 15 evaluation tasks on Claude Haiku 5.5 at about $0.00015 per task (details in
-> [Support agent](#support-agent) below).
+> [Support agent](#support-agent) below). Invoice extraction gets 374 of 374 fields right on 10
+> synthetic invoices on Claude Haiku 5.5 at about $0.0007 per invoice (details in
+> [Invoice extraction](#invoice-extraction) below).
 
 ## How the document Q&A works
 
@@ -72,6 +77,8 @@ docker compose exec app php artisan rag:ask "What does the document say about X?
 docker compose exec app php artisan agent:ask "Where is my order ORD-10003?"
 docker compose exec app php artisan agent:eval                     # 15 tasks; --model=claude-opus-5-5 to compare
 docker compose exec app php artisan agent:report                   # outcomes, cost and cache hits by model
+docker compose exec app php artisan invoice:extract resources/invoice-eval/samples/inv-06-coral-spindle-wrong-total.pdf --sync
+docker compose exec app php artisan invoice:eval                   # 10 invoices; --model=claude-opus-5-5 to compare
 ```
 
 Over HTTP:
@@ -80,6 +87,12 @@ Over HTTP:
 curl -X POST http://localhost:8010/api/agent/ask \
   -H 'Accept: application/json' -H 'Content-Type: application/json' \
   -d '{"question": "Where is my order ORD-10003?"}'
+
+# Upload an invoice: answers 202 Accepted with a Location header, then poll it.
+curl -X POST http://localhost:8010/api/invoices -H 'Accept: application/json' \
+  -F file=@resources/invoice-eval/samples/inv-05-coral-spindle-unregistered-customer.pdf
+docker compose exec app php artisan queue:work --stop-when-empty   # runs the queued extraction
+curl http://localhost:8010/api/invoices/1 -H 'Accept: application/json'
 ```
 
 Tests (no API calls; the model is replaced by a scripted fake):
@@ -253,6 +266,116 @@ fails if the second call reads nothing from the cache, which catches changes tha
 - The help-center search matches keywords, not meaning.
 - The orders, customers and articles are fictional.
 
+## Invoice extraction
+
+Send a PDF invoice and get back structured data: invoice number, dates, supplier and customer with
+their UAE Tax Registration Numbers (TRN), currency, every line item, subtotal, discount, VAT and
+total. The model reads the page; the code decides whether to trust it.
+
+```
+$ php artisan invoice:extract resources/invoice-eval/samples/inv-06-coral-spindle-wrong-total.pdf --sync
+Invoice #2 · inv-06-coral-spindle-wrong-total.pdf · needs_review · failed: total
+
+  CSP/26/0921 · issued 2026-11-10 · due 2026-11-24
+  From CORAL SPINDLE PRINTING LLC (TRN 100456789000003)
+  To   Harbor Finch Consulting FZ-LLC (TRN 100987654300003)
+
++---+----------------------------------+-----+------------+--------------+
+| # | Description                      | Qty | Unit price | Line total   |
++---+----------------------------------+-----+------------+--------------+
+| 1 | Annual report printing, 48 pages | 200 | AED 18.50  | AED 3,700.00 |
+| 2 | Presentation folders, printed    | 300 | AED 7.25   | AED 2,175.00 |
+| 3 | Envelopes C4, printed            | 500 | AED 1.10   | AED 550.00   |
++---+----------------------------------+-----+------------+--------------+
+  Subtotal AED 6,425.00 · discount AED 0.00 · VAT 5.00% AED 321.25 · total AED 6,846.25
+
+Extraction #2 · claude-haiku-5-5 · completed · stop end_turn · 4070 in / 316 out tokens · 2799 ms · ~$0.000565
+```
+
+This sample prints a total 100.00 too high on purpose. The model reports the total as printed, and
+the code catches the error: subtotal 6,425.00 plus VAT 321.25 is 6,746.25, not 6,846.25.
+
+### How it works
+
+1. **Intake** (`app/Invoices/InvoiceIntake.php`): the PDF is stored under its SHA-256 hash and an
+   invoice row is created with status `pending`.
+2. **Extraction** (queued job `app/Jobs/ExtractInvoice.php`): the PDF goes to Claude as a document
+   block, with a JSON schema as the required output format (structured outputs), so a normal reply
+   always parses and matches the schema (`app/Invoices/InvoiceSchema.php`). The stop reason is checked
+   before anything is read: a refused or cut-off reply is logged and never parsed. Every call is
+   logged with its model, tokens, latency and cost, failed calls included.
+3. **Review** (`app/Invoices/InvoiceReviewer.php`): Laravel validation on every field, then the
+   arithmetic is recomputed in integer fils or cents, then the TRNs are checked. All checks pass →
+   `accepted`; any check fails → `needs_review` with the failed checks listed; not an invoice →
+   `rejected`; the call failed → `failed`.
+4. **Storage**: fields and lines are saved in one transaction. Money is stored as integer minor
+   units behind a custom cast that refuses bare numbers, so 1853 can never be read as fils when it
+   meant dirhams.
+
+The model returns no confidence score. The code checks are the confidence signal, and they do not
+depend on the model behaving.
+
+| Check | Fails when |
+|---|---|
+| `invalid:<field>` | A validation rule fails: a date that is not YYYY-MM-DD, a due date before the issue date, a lowercase currency, no lines, a quantity of 0 |
+| `line_total:<n>` | Quantity × unit price is not the line total on line n |
+| `subtotal` | The line totals do not add up to the subtotal |
+| `vat_amount` | VAT is not the rate applied to subtotal minus discount |
+| `total` | Subtotal minus discount plus VAT is not the total |
+| `supplier_trn`, `customer_trn` | A TRN is printed but is not 15 digits (spaces and hyphens are stripped first) |
+| `supplier_trn_missing` | VAT is charged but no supplier TRN is printed |
+
+Amounts may differ by 0.01, because suppliers round VAT per line or per invoice.
+
+### Evaluation
+
+Ten invoices in `resources/invoice-eval/samples/`, built by `resources/invoice-eval/build-samples.php`
+from one block of data that also writes the expected answers to `resources/invoice-eval/expected/`,
+so a PDF and its answers cannot drift apart. Four layouts print dates and amounts differently
+(04/10/2026, 12 Nov 2026, November 7, 2026; AED 1,450.00, Dhs 1,450.00, 1450.00). The set includes a
+discount, hours as a decimal quantity, an invoice of 36 lines over three pages with the totals alone
+on the last page, a customer without a TRN, a zero-rated USD invoice, an image-only scan with no text
+layer, an invoice with no due date, a printed total that is wrong, and a quotation that must be
+rejected.
+
+`invoice:eval` runs each one through the real pipeline and scores what is stored: the status, the
+failed checks, and every field and line. Names ignore case and spacing; amounts must match to the fil.
+
+| Model | Invoices passed | Fields right | Cost per invoice | Average time |
+|---|---|---|---|---|
+| Claude Haiku 5.5 | 10 / 10 | 374 / 374 | $0.00073 | 3.3 s |
+| Claude Opus 5.5 | 10 / 10 | 374 / 374 | $0.0268 | 4.9 s |
+
+Both models score full marks, which means this set is too easy to tell them apart. It shows that
+Haiku is enough for clean, machine-made layouts at about a thirty-seventh of the cost of Opus. It does
+not show accuracy on real supplier invoices: the layouts are mine, the scan is clean (no skew, noise
+or stamps), and every page is in English.
+
+### Laravel features used
+
+| Feature | Where |
+|---|---|
+| Queued job, run on the database queue or synchronously | `app/Jobs/ExtractInvoice.php` |
+| File upload validation that checks the content, not the name | `app/Http/Requests/UploadInvoiceRequest.php` |
+| Storage disk for the originals | `app/Invoices/InvoiceIntake.php` |
+| Custom cast and a value object for money | `app/Casts/MinorUnits.php`, `app/Invoices/Money.php` |
+| Validator with nested and wildcard rules | `app/Invoices/InvoiceReviewer.php` |
+| Database transaction | `ExtractInvoice::store()` |
+| Enums for statuses | `app/Enums/InvoiceStatus.php`, `ExtractionStatus.php`, `DocumentType.php` |
+| API endpoints answering 202 Accepted with a Location header, route model binding, API Resource | `routes/api.php`, `app/Http/Controllers/InvoiceController.php`, `app/Http/Resources/InvoiceResource.php` |
+| Rate limiter on uploads | `InvoiceServiceProvider::boot()` |
+| Tests with a fake extractor, `Queue::fake` and `Storage::fake`; the expected answers double as test data | `tests/Feature/Invoices/`, `tests/Fakes/FakeInvoiceExtractor.php` |
+
+### Limits
+
+- Ten synthetic invoices, English only. Bilingual Arabic and English invoices, poor scans and
+  VAT-inclusive prices are not tested yet.
+- Two decimals are assumed for every currency.
+- No login: `GET /api/invoices/{id}` shows any invoice to anyone who has its number. A real product
+  would scope invoices to their owner.
+- A due date is only read when printed; payment terms such as "Net 30" are not turned into a date.
+- There is no web page for uploads yet; use the command or the API.
+
 ## Roadmap
 
 - [x] Project setup: Docker, Postgres with pgvector, documents and chunks tables
@@ -274,11 +397,22 @@ Support agent:
 - [ ] Short demo of the agent
 - [ ] Conversation memory and a web page for the agent
 
+Invoice extraction:
+
+- [x] Ten sample invoices with expected answers, built from one data file
+- [x] Tables, money cast, validation and arithmetic/TRN checks
+- [x] Extraction with structured outputs, queued job and call logging
+- [x] Evaluation on Claude Haiku 5.5 and Claude Opus 5.5
+- [x] Upload and status endpoints
+- [ ] Harder samples: bilingual Arabic and English, poor scans, VAT-inclusive prices
+- [ ] Short demo of an extraction
+
 ## Scope
 
 This is a focused demo, kept small on purpose. It has no login, no multiple users and no chat
 history. The same pieces (chunking, embeddings, vector search, cited answers, tool use and run
-logging) carry over to an assistant inside an existing product. The order data is fictional.
+logging) carry over to an assistant inside an existing product. The order data and every company,
+TRN and amount on the sample invoices are fictional.
 
 ## License
 
