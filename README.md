@@ -272,6 +272,10 @@ Send a PDF invoice and get back structured data: invoice number, dates, supplier
 their UAE Tax Registration Numbers (TRN), currency, every line item, subtotal, discount, VAT and
 total. The model reads the page; the code decides whether to trust it.
 
+![An invoice whose printed total is 100.00 too high: the extraction reports it as printed and the code flags it for review, then the evaluation passes 10 of 10 invoices](docs/invoice-demo.gif)
+
+*Typing sped up and waiting trimmed; one extraction takes 2 to 4 seconds, the full evaluation about 35 seconds.*
+
 ```
 $ php artisan invoice:extract resources/invoice-eval/samples/inv-06-coral-spindle-wrong-total.pdf --sync
 Invoice #2 · inv-06-coral-spindle-wrong-total.pdf · needs_review · failed: total
@@ -405,7 +409,7 @@ Invoice extraction:
 - [x] Evaluation on Claude Haiku 5.5 and Claude Opus 5.5
 - [x] Upload and status endpoints
 - [ ] Harder samples: bilingual Arabic and English, poor scans, VAT-inclusive prices
-- [ ] Short demo of an extraction
+- [x] Short demo of an extraction
 
 ## Scope
 
