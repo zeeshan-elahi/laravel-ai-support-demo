@@ -23,6 +23,7 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     environment:
       COMPOSER_HOME: /tmp/composer
+      OLLAMA_URL: http://ollama:11434
     volumes:
       - .:/app
     command: php artisan serve --host=0.0.0.0 --port=8000
@@ -32,7 +33,28 @@ services:
       db:
         condition: service_healthy
 
+  # Free local model for the guard demo (AMD GPU through ROCm). Start with: docker compose --profile local-llm up -d
+  ollama:
+    image: ollama/ollama:rocm
+    profiles: ["local-llm"]
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
+    environment:
+      # RX 6600 (gfx1032) is not on ROCm's official list; it runs as gfx1030.
+      HSA_OVERRIDE_GFX_VERSION: "10.3.0"
+    volumes:
+      - ollama-models:/root/.ollama
+    ports:
+      - "127.0.0.1:11434:11434"
+
 volumes:
   pgdata:
     # Pinned to the volume created under the repo's first name, so the database survives the rename.
     name: laravel-rag-demo_pgdata
+  ollama-models:
+    # Created by the first GPU test (2026-11-24); holds qwen3:8b.
+    name: ollama-models
+    external: true

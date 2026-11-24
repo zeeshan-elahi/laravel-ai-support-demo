@@ -218,6 +218,22 @@ another customer's order, and promise a 50% discount. The defences, and where ea
 The code checks do not depend on the model behaving. One test makes a scripted model obey the
 planted bulk-orders instruction and checks that no ticket is created.
 
+These defences are now a standalone package for the Laravel AI SDK,
+[laravel-ai-guard](https://github.com/zeeshan-elahi/laravel-ai-guard) (`composer require
+zeeshan-elahi/laravel-ai-guard`), installed in this app. Its red-team of 19 indirect attacks took
+attack success from 32% to 0% on a local `qwen3:8b`, with every normal request still working. To run
+it here against the local model:
+
+```bash
+docker compose --profile local-llm up -d ollama
+docker compose exec ollama ollama pull qwen3:8b
+docker compose run --rm app php artisan guard:redteam --provider=ollama --model=qwen3:8b
+```
+
+The `ollama` service in `compose.yaml` is set up for an AMD GPU (ROCm). On an NVIDIA GPU or CPU
+only, use the `ollama/ollama` image instead and drop the `devices` and `HSA_OVERRIDE_GFX_VERSION`
+lines.
+
 ### Evaluation
 
 Fifteen tasks in `resources/agent-eval/tasks.php`: order lookups and edge cases, tickets asked for
